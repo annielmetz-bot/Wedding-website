@@ -1,242 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Annie & Marcus | September 4, 2027</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Qué Momento! — Annie & Marcus, Sept 4 2027</title>
+  <meta name="description" content="Annie & Marcus are getting married September 4, 2027 in Arroyo Seco, New Mexico. Join us!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <header class="site-header">
-        <nav class="nav-container">
-            <div class="nav-logo">A &amp; M</div>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#story">Our Story</a></li>
-                <li><a href="#details">Details</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#rsvp">RSVP</a></li>
-            </ul>
-            <button class="nav-toggle" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
-        </nav>
-    </header>
+  <!-- ===== Navigation ===== -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">¡Qué Momento!</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="travel.html">Travel &amp; Stay</a></li>
+      <li><a href="todo.html">Things to Do</a></li>
+      <li><a href="eat.html">Places to Eat</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="messages.html">Message Board</a></li>
+    </ul>
+  </nav>
 
-    <!-- Hero -->
-    <section id="hero">
-        <div class="hero-content">
-            <p class="hero-pre">We&rsquo;re getting married</p>
-            <h1>Annie &amp; Marcus</h1>
-            <p class="hero-date">September 4, 2027 &bull; Arroyo Seco, New Mexico</p>
-            <div class="countdown">
-                <div class="countdown-item">
-                    <span id="days">000</span>
-                    <label>Days</label>
-                </div>
-                <div class="countdown-sep">:</div>
-                <div class="countdown-item">
-                    <span id="hours">00</span>
-                    <label>Hours</label>
-                </div>
-                <div class="countdown-sep">:</div>
-                <div class="countdown-item">
-                    <span id="minutes">00</span>
-                    <label>Minutes</label>
-                </div>
-                <div class="countdown-sep">:</div>
-                <div class="countdown-item">
-                    <span id="seconds">00</span>
-                    <label>Seconds</label>
-                </div>
-            </div>
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-tagline">We're getting married</p>
+      <div class="hero-que">¡Qué Momento!</div>
+      <div class="hero-divider"></div>
+      <div class="hero-names">
+        Annie
+        <span>&amp;</span>
+        Marcus
+      </div>
+      <div class="hero-date-loc">
+        September 4, 2027<br />
+        Arroyo Seco, New Mexico
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ===== Ticker ===== -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Annie &amp; Marcus</span>
+      <span>✦</span>
+      <span>September 4, 2027</span>
+      <span>✦</span>
+      <span>Arroyo Seco, New Mexico</span>
+      <span>✦</span>
+      <span>¡Qué Momento!</span>
+      <span>✦</span>
+      <span>Annie &amp; Marcus</span>
+      <span>✦</span>
+      <span>September 4, 2027</span>
+      <span>✦</span>
+      <span>Arroyo Seco, New Mexico</span>
+      <span>✦</span>
+      <span>¡Qué Momento!</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- ===== Our Story ===== -->
+  <section class="story-section section-full">
+    <div class="section-header" style="max-width:var(--max-w);margin:0 auto 3rem;padding:5rem 2rem 0;">
+      <p class="eyebrow">How it happened</p>
+      <h2>Our Story</h2>
+    </div>
+    <div class="story-grid" style="padding:0 2rem 5rem;">
+      <div class="story-text">
+        <p>
+          Annie and Marcus met during a brief but chaotic shared living situation in Washington, D.C., in
+          2018. They became fast friends while navigating the quirks of their group house, and somewhere
+          between late-night kitchen conversations and impromptu adventures, something shifted.
+        </p>
+        <p>
+          They've since traded D.C. for the road — from the red rocks of New Mexico to ferry rides in
+          Scandinavia, from Oregon lakeshores to Caribbean beaches. Every trip has been proof that the
+          best adventures are better together.
+        </p>
+        <p>
+          Now they're inviting their favorite people to share the next big one. A weekend in the mountains
+          of northern New Mexico, surrounded by people they love, in a place that feels like magic.
+        </p>
+      </div>
+      <div class="story-image">
+        <img src="images/couple-story.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Weekend Schedule ===== -->
+  <section class="schedule-section">
+    <div class="schedule-inner">
+      <div class="section-header">
+        <p class="eyebrow">Plan ahead</p>
+        <h2>The Weekend</h2>
+      </div>
+      <div class="schedule-grid">
+        <div class="schedule-card">
+          <div class="schedule-card-day">Friday · September 3</div>
+          <h3>Welcome Party</h3>
+          <p><strong>Where:</strong> Juliette at Hotel Willa, Taos</p>
+          <p>
+            Kick off the weekend with us at Juliette, the beautiful bar and restaurant inside Hotel Willa
+            in downtown Taos. Come meet the wedding party, grab a drink, and get in the mood for a New
+            Mexico weekend. Casual and low-key — stop in whenever works for you.
+          </p>
         </div>
-        <div class="hero-scroll-hint">
-            <span>Scroll</span>
-            <div class="scroll-arrow"></div>
+        <div class="schedule-card">
+          <div class="schedule-card-day">Saturday · September 4</div>
+          <h3>The Wedding</h3>
+          <p><strong>Where:</strong> 48 Rim Road, Arroyo Seco, NM</p>
+          <p>
+            The ceremony and reception will take place at a private property in Arroyo Seco with sweeping
+            views of the Sangre de Cristo Mountains. More details — including timing, dress code tips, and
+            what to expect — are in the FAQ.
+          </p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Our Story -->
-    <section id="story">
-        <div class="section-inner">
-            <h2 class="section-title">Our Story</h2>
-            <div class="story-content">
-                <div class="story-block">
-                    <div class="story-icon">&#x2665;</div>
-                    <h3>How We Met</h3>
-                    <p>Once upon a time in Arroyo Seco, NM, Annie and Marcus met during a breathtaking sunset&mdash;and the rest, as they say, is history.</p>
-                </div>
-                <div class="story-block">
-                    <div class="story-icon">&#x2605;</div>
-                    <h3>The Journey</h3>
-                    <p>After years of friendship and adventures together, they knew they had something truly special. Every trail, every laugh, every shared moment brought them closer.</p>
-                </div>
-                <div class="story-block">
-                    <div class="story-icon">&#x2764;</div>
-                    <h3>Forever Begins</h3>
-                    <p>Now they&rsquo;re ready to embark on the greatest adventure of all. Join them as they celebrate the start of their forever.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ===== Page Navigation Tiles ===== -->
+  <section class="page-tiles-section section-full">
+    <div class="section-header" style="max-width:var(--max-w);margin:0 auto 3rem;padding:5rem 2rem 0;">
+      <p class="eyebrow">Everything you need</p>
+      <h2>Plan Your Trip</h2>
+    </div>
+    <div class="page-tiles" style="padding:0 2rem 5rem;">
+      <a href="travel.html" class="page-tile">
+        <div class="page-tile-icon">✈️</div>
+        <h3>Travel &amp; Stay</h3>
+        <p>Hotels, getting to Taos, and getting around once you're there.</p>
+      </a>
+      <a href="todo.html" class="page-tile">
+        <div class="page-tile-icon">🏔️</div>
+        <h3>Things to Do</h3>
+        <p>Art, hiking, hot springs, shopping — the full Taos guide.</p>
+      </a>
+      <a href="eat.html" class="page-tile">
+        <div class="page-tile-icon">🌶️</div>
+        <h3>Places to Eat</h3>
+        <p>Our favorite spots for breakfast through dinner in the area.</p>
+      </a>
+      <a href="faq.html" class="page-tile">
+        <div class="page-tile-icon">❓</div>
+        <h3>FAQ</h3>
+        <p>Weather, altitude, dress code, parking, gifts, and more.</p>
+      </a>
+      <a href="messages.html" class="page-tile">
+        <div class="page-tile-icon">💌</div>
+        <h3>Message Board</h3>
+        <p>Leave us a note or share a photo with the wedding guests.</p>
+      </a>
+    </div>
+  </section>
 
-    <!-- Wedding Details -->
-    <section id="details">
-        <div class="section-inner">
-            <h2 class="section-title">Wedding Details</h2>
-            <div class="details-grid">
-                <div class="detail-card">
-                    <div class="detail-icon">&#x26EA;</div>
-                    <h3>Ceremony</h3>
-                    <p>Saturday, September 4, 2027</p>
-                    <p>4:00 PM</p>
-                    <p>Arroyo Seco, New Mexico</p>
-                </div>
-                <div class="detail-card">
-                    <div class="detail-icon">&#x1F942;</div>
-                    <h3>Reception</h3>
-                    <p>Immediately following</p>
-                    <p>Dinner &amp; Dancing</p>
-                    <p>Arroyo Seco, New Mexico</p>
-                </div>
-                <div class="detail-card">
-                    <div class="detail-icon">&#x1F3E8;</div>
-                    <h3>Accommodations</h3>
-                    <p>More details coming soon!</p>
-                    <p>Nearby Taos, NM offers<br>many wonderful lodging options.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ===== Gallery ===== -->
+  <section class="gallery-section section-full">
+    <div class="section-header" style="max-width:var(--max-w);margin:0 auto 2.5rem;padding:5rem 2rem 0;">
+      <p class="eyebrow">Adventures together</p>
+      <h2>Our Favorite Moments</h2>
+    </div>
+    <div class="gallery-grid" style="padding:0 2rem 5rem;" id="gallery">
+      <div class="gallery-item" data-src="images/photo1.jpg">
+        <img src="images/photo1.jpg" alt="Annie and Marcus on an adventure" loading="lazy" />
+      </div>
+      <div class="gallery-item tall" data-src="images/photo2.jpg">
+        <img src="images/photo2.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-src="images/photo3.jpg">
+        <img src="images/photo3.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-src="images/photo4.jpg">
+        <img src="images/photo4.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item tall" data-src="images/photo5.jpg">
+        <img src="images/photo5.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-src="images/photo6.jpg">
+        <img src="images/photo6.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-src="images/photo7.jpg">
+        <img src="images/photo7.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-src="images/photo8.jpg">
+        <img src="images/photo8.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-src="images/photo9.jpg">
+        <img src="images/photo9.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-src="images/photo10.jpg">
+        <img src="images/photo10.jpg" alt="Annie and Marcus" loading="lazy" />
+      </div>
+    </div>
+  </section>
 
-    <!-- Gallery -->
-    <section id="gallery">
-        <div class="section-inner">
-            <h2 class="section-title">Gallery</h2>
-            <div class="gallery-slideshow">
-                <!-- Slide 1 — replace entire .slide-tiles div with <img src="image1.jpg" alt="..."> when ready -->
-                <div class="slide active">
-                    <div class="slide-tiles">
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell tile-label">
-                            <p>Add photo</p>
-                            <small>image1.jpg</small>
-                        </div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="slide">
-                    <div class="slide-tiles">
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell tile-label">
-                            <p>Add photo</p>
-                            <small>image2.jpg</small>
-                        </div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                    </div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="slide">
-                    <div class="slide-tiles">
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell tile-label">
-                            <p>Add photo</p>
-                            <small>image3.jpg</small>
-                        </div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                        <div class="tile-cell"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-controls">
-                <button class="gallery-btn prev-btn" aria-label="Previous photo">&#8249;</button>
-                <div class="gallery-dots">
-                    <button class="dot active" aria-label="Photo 1"></button>
-                    <button class="dot" aria-label="Photo 2"></button>
-                    <button class="dot" aria-label="Photo 3"></button>
-                </div>
-                <button class="gallery-btn next-btn" aria-label="Next photo">&#8250;</button>
-            </div>
-        </div>
-    </section>
+  <!-- ===== Lightbox ===== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close photo">&times;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
 
-    <!-- RSVP / Contact -->
-    <section id="rsvp">
-        <div class="section-inner">
-            <h2 class="section-title">RSVP</h2>
-            <p class="rsvp-subtitle">Please respond by August 1, 2027</p>
-            <form class="rsvp-form" id="rsvp-form">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="Your name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="guests">Number of Guests</label>
-                    <select id="guests" name="guests">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div class="form-group radio-group">
-                    <label>Will you attend?</label>
-                    <div class="radio-options">
-                        <label class="radio-label">
-                            <input type="radio" name="attending" value="yes" checked>
-                            <span>Joyfully accepts</span>
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="attending" value="no">
-                            <span>Regretfully declines</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message (optional)</label>
-                    <textarea id="message" name="message" placeholder="Share a message with the couple..." rows="4"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send RSVP</button>
-            </form>
-            <div class="rsvp-success" id="rsvp-success" hidden>
-                <p>Thank you! We can&rsquo;t wait to celebrate with you. &#x2665;</p>
-            </div>
-            <p class="contact-email">Questions? Email us at <a href="mailto:contact@anniemarcuswedding.com">contact@anniemarcuswedding.com</a></p>
-        </div>
-    </section>
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="footer-brand">¡Qué Momento!</div>
+    <div class="footer-names">Annie &amp; Marcus</div>
+    <div class="footer-date">September 4, 2027 · Arroyo Seco, New Mexico</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="travel.html">Travel &amp; Stay</a></li>
+      <li><a href="todo.html">Things to Do</a></li>
+      <li><a href="eat.html">Places to Eat</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="messages.html">Message Board</a></li>
+    </ul>
+    <p class="footer-copy">Made with love for our favorite people.</p>
+  </footer>
 
-    <footer class="site-footer">
-        <p>Annie &amp; Marcus &bull; September 4, 2027 &bull; Arroyo Seco, New Mexico</p>
-        <p>&copy; 2026 Annie &amp; Marcus. Made with love.</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

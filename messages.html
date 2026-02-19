@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Message Board — Annie &amp; Marcus Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="messages-page">
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">¡Qué Momento!</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="travel.html">Travel &amp; Stay</a></li>
+      <li><a href="todo.html">Things to Do</a></li>
+      <li><a href="eat.html">Places to Eat</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="messages.html" class="active">Message Board</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Say something nice</p>
+      <h1>Message Board</h1>
+      <p>Leave Annie &amp; Marcus a note, a photo, or your best advice. We'll read every one.</p>
+    </div>
+  </div>
+
+  <main class="content-body">
+
+    <!-- Post a message form -->
+    <div class="message-form-wrap">
+      <h2>Leave a Message</h2>
+      <form id="messageForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="msgName">Your Name *</label>
+            <input type="text" id="msgName" name="name" placeholder="First &amp; last name" required />
+          </div>
+          <div class="form-group">
+            <label for="msgRelation">How do you know them?</label>
+            <input type="text" id="msgRelation" name="relation" placeholder="e.g. Friend of Marcus, Work with Annie…" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="msgText">Your Message *</label>
+          <textarea id="msgText" name="message" placeholder="Share a memory, a wish, some advice, a toast…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Photo (optional)</label>
+          <label class="photo-upload-label">
+            <input type="file" id="msgPhoto" name="photo" accept="image/*" />
+            <span>📷</span>
+            <span id="photoFileName">Choose a photo to share…</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          Post Message
+        </button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+
+    <!-- Messages feed -->
+    <div>
+      <div class="section-header" style="text-align:left;margin-bottom:1.5rem;">
+        <p class="eyebrow">From your people</p>
+        <h2 style="font-size:2rem;">Messages</h2>
+      </div>
+      <div class="messages-grid" id="messagesGrid">
+        <!-- Messages will be inserted here by JavaScript -->
+        <div class="messages-empty" id="messagesEmpty">
+          <div style="font-size:2rem;">💌</div>
+          <p>Be the first to leave a message!</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">¡Qué Momento!</div>
+    <div class="footer-names">Annie &amp; Marcus</div>
+    <div class="footer-date">September 4, 2027 · Arroyo Seco, New Mexico</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="travel.html">Travel &amp; Stay</a></li>
+      <li><a href="todo.html">Things to Do</a></li>
+      <li><a href="eat.html">Places to Eat</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="messages.html">Message Board</a></li>
+    </ul>
+    <p class="footer-copy">Made with love for our favorite people.</p>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // =====================================================
+    // FIREBASE CONFIGURATION
+    // Replace the values below with your own Firebase project config.
+    // Steps:
+    //  1. Go to https://console.firebase.google.com
+    //  2. Create a new project (free Spark plan is fine)
+    //  3. Add a Web App inside the project
+    //  4. Copy the firebaseConfig object and paste it here
+    //  5. Enable Firestore (Build > Firestore Database > Create database)
+    //  6. Enable Storage (Build > Storage > Get started)
+    //  7. Set Firestore rules to allow reads and writes from anyone
+    //     (for now; you can add auth later)
+    // =====================================================
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+    import {
+      getFirestore, collection, addDoc, getDocs,
+      orderBy, query, serverTimestamp, onSnapshot
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+    import {
+      getStorage, ref, uploadBytes, getDownloadURL
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
+
+    // ===== PASTE YOUR FIREBASE CONFIG HERE =====
+    const firebaseConfig = {
+      apiKey:            "YOUR_API_KEY",
+      authDomain:        "YOUR_PROJECT.firebaseapp.com",
+      projectId:         "YOUR_PROJECT_ID",
+      storageBucket:     "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId:             "YOUR_APP_ID"
+    };
+    // ============================================
+
+    const FIREBASE_CONFIGURED = firebaseConfig.apiKey !== "YOUR_API_KEY";
+
+    let app, db, storage;
+    if (FIREBASE_CONFIGURED) {
+      app     = initializeApp(firebaseConfig);
+      db      = getFirestore(app);
+      storage = getStorage(app);
+    }
+
+    // ===== DOM refs =====
+    const form         = document.getElementById('messageForm');
+    const submitBtn    = document.getElementById('submitBtn');
+    const formStatus   = document.getElementById('formStatus');
+    const grid         = document.getElementById('messagesGrid');
+    const emptyState   = document.getElementById('messagesEmpty');
+    const photoInput   = document.getElementById('msgPhoto');
+    const photoLabel   = document.getElementById('photoFileName');
+
+    // Show file name when photo selected
+    photoInput.addEventListener('change', () => {
+      photoLabel.textContent = photoInput.files[0]
+        ? photoInput.files[0].name
+        : 'Choose a photo to share…';
+    });
+
+    // ===== Render a single message card =====
+    function renderCard(data) {
+      emptyState.style.display = 'none';
+      const card = document.createElement('div');
+      card.className = 'message-card';
+
+      const dateStr = data.timestamp?.toDate
+        ? data.timestamp.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : 'Just now';
+
+      card.innerHTML = `
+        <div class="message-card-header">
+          <div class="message-card-name">${escHtml(data.name)}</div>
+          <div class="message-card-date">${dateStr}</div>
+        </div>
+        ${data.relation ? `<div class="eyebrow" style="text-align:left;">${escHtml(data.relation)}</div>` : ''}
+        <div class="message-card-text">${escHtml(data.message).replace(/\n/g, '<br>')}</div>
+        ${data.photoUrl ? `<div class="message-card-photo"><img src="${escHtml(data.photoUrl)}" alt="Photo from ${escHtml(data.name)}" loading="lazy" /></div>` : ''}
+      `;
+      grid.prepend(card);
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ===== Load existing messages =====
+    async function loadMessages() {
+      if (!FIREBASE_CONFIGURED) {
+        showDemoMessages();
+        return;
+      }
+      try {
+        const q = query(collection(db, 'messages'), orderBy('timestamp', 'desc'));
+        onSnapshot(q, (snapshot) => {
+          // Remove existing cards (but keep empty state)
+          grid.querySelectorAll('.message-card').forEach(el => el.remove());
+          if (snapshot.empty) {
+            emptyState.style.display = '';
+            return;
+          }
+          emptyState.style.display = 'none';
+          snapshot.forEach(doc => renderCard(doc.data()));
+        });
+      } catch (err) {
+        console.error('Error loading messages:', err);
+      }
+    }
+
+    // ===== Submit handler =====
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name    = document.getElementById('msgName').value.trim();
+      const relation= document.getElementById('msgRelation').value.trim();
+      const message = document.getElementById('msgText').value.trim();
+      const photo   = photoInput.files[0];
+
+      if (!name || !message) {
+        showStatus('Please fill in your name and message.', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Posting…';
+      hideStatus();
+
+      try {
+        let photoUrl = null;
+
+        if (!FIREBASE_CONFIGURED) {
+          // Demo mode — just show it locally
+          renderCard({ name, relation, message, photoUrl: null, timestamp: null });
+          form.reset();
+          photoLabel.textContent = 'Choose a photo to share…';
+          showStatus('Message posted! (Demo mode — configure Firebase to save permanently.)', 'success');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Post Message';
+          return;
+        }
+
+        if (photo) {
+          const storageRef = ref(storage, `message-photos/${Date.now()}-${photo.name}`);
+          const snapshot   = await uploadBytes(storageRef, photo);
+          photoUrl         = await getDownloadURL(snapshot.ref);
+        }
+
+        await addDoc(collection(db, 'messages'), {
+          name, relation, message, photoUrl,
+          timestamp: serverTimestamp()
+        });
+
+        form.reset();
+        photoLabel.textContent = 'Choose a photo to share…';
+        showStatus('Your message has been posted. Thank you! 💌', 'success');
+      } catch (err) {
+        console.error('Error posting message:', err);
+        showStatus('Something went wrong. Please try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Post Message';
+      }
+    });
+
+    function showStatus(msg, type) {
+      formStatus.textContent = msg;
+      formStatus.className = `form-status ${type}`;
+    }
+    function hideStatus() {
+      formStatus.className = 'form-status';
+    }
+
+    // Demo messages shown when Firebase isn't configured
+    function showDemoMessages() {
+      const demos = [
+        { name: 'Your Guests', relation: 'Friend of the couple', message: 'Configure Firebase (see the HTML comments) to let guests post real messages here! Once set up, messages will appear in real-time and persist forever. 🎉', photoUrl: null, timestamp: null }
+      ];
+      demos.forEach(renderCard);
+    }
+
+    // Kick off
+    loadMessages();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

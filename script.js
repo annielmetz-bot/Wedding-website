@@ -1,128 +1,131 @@
 /* ============================================
-   Countdown Timer — Sept 4, 2027 at 4:00 PM
+   ¡Qué Momento! — Wedding Website JS
    ============================================ */
-function updateCountdown() {
-  const weddingDate = new Date('2027-09-04T16:00:00');
-  const now = new Date();
-  const diff = weddingDate - now;
 
-  if (diff <= 0) {
-    document.querySelector('.countdown').innerHTML =
-      '<p style="font-family:var(--font-display);font-size:2rem;color:var(--sand-light)">Today\'s the day! ♥</p>';
-    return;
+// ===== Mobile Nav Toggle =====
+(function () {
+  const toggle  = document.querySelector('.nav-toggle');
+  const navList = document.getElementById('navLinks');
+  if (!toggle || !navList) return;
+
+  toggle.addEventListener('click', () => {
+    const open = navList.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  // Close menu when a link is clicked
+  navList.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navList.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!toggle.contains(e.target) && !navList.contains(e.target)) {
+      navList.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+// ===== Active Nav Link =====
+(function () {
+  const page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === page || (page === '' && href === 'index.html')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+})();
+
+// ===== Gallery Lightbox =====
+(function () {
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lightboxImg');
+  const lbClose   = document.getElementById('lightboxClose');
+  if (!lightbox) return;
+
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const src = item.dataset.src || item.querySelector('img')?.src;
+      const alt = item.querySelector('img')?.alt || '';
+      if (!src) return;
+      lbImg.src = src;
+      lbImg.alt = alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
   }
 
-  const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  lbClose.addEventListener('click', closeLightbox);
 
-  document.getElementById('days').textContent    = String(days).padStart(3, '0');
-  document.getElementById('hours').textContent   = String(hours).padStart(2, '0');
-  document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-  document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-/* ============================================
-   Sticky Header
-   ============================================ */
-const header = document.querySelector('.site-header');
-
-function handleScroll() {
-  header.classList.toggle('scrolled', window.scrollY > 40);
-  updateActiveNav();
-}
-
-window.addEventListener('scroll', handleScroll, { passive: true });
-handleScroll();
-
-/* ============================================
-   Active Nav Link on Scroll
-   ============================================ */
-const sections  = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.nav-links a');
-
-function updateActiveNav() {
-  const scrollPos = window.scrollY + 100;
-  let current = '';
-
-  sections.forEach(section => {
-    if (section.offsetTop <= scrollPos) current = section.id;
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
   });
 
-  navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+      closeLightbox();
+    }
   });
-}
+})();
 
-/* ============================================
-   Mobile Nav Toggle
-   ============================================ */
-const navToggle        = document.querySelector('.nav-toggle');
-const navLinksContainer = document.querySelector('.nav-links');
+// ===== FAQ Accordion =====
+(function () {
+  const faqItems = document.querySelectorAll('.faq-item');
+  if (!faqItems.length) return;
 
-navToggle.addEventListener('click', () => {
-  navLinksContainer.classList.toggle('open');
-});
+  faqItems.forEach(item => {
+    const btn    = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    if (!btn || !answer) return;
 
-navLinksContainer.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => navLinksContainer.classList.remove('open'));
-});
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
 
-/* ============================================
-   Gallery Slideshow
-   ============================================ */
-const slides   = document.querySelectorAll('.slide');
-const dots     = document.querySelectorAll('.dot');
-let current    = 0;
-let autoplay;
+      // Close all
+      faqItems.forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+        const a = i.querySelector('.faq-answer');
+        if (a) a.style.maxHeight = null;
+      });
 
-function goToSlide(index) {
-  slides[current].classList.remove('active');
-  dots[current].classList.remove('active');
-  current = (index + slides.length) % slides.length;
-  slides[current].classList.add('active');
-  dots[current].classList.add('active');
-}
-
-function startAutoplay() {
-  autoplay = setInterval(() => goToSlide(current + 1), 4500);
-}
-
-function stopAutoplay() {
-  clearInterval(autoplay);
-}
-
-document.querySelector('.prev-btn').addEventListener('click', () => {
-  stopAutoplay(); goToSlide(current - 1); startAutoplay();
-});
-
-document.querySelector('.next-btn').addEventListener('click', () => {
-  stopAutoplay(); goToSlide(current + 1); startAutoplay();
-});
-
-dots.forEach((dot, i) => {
-  dot.addEventListener('click', () => {
-    stopAutoplay(); goToSlide(i); startAutoplay();
+      // Open clicked (if it was closed)
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
   });
-});
+})();
 
-startAutoplay();
-
-/* ============================================
-   RSVP Form
-   ============================================ */
-const form       = document.getElementById('rsvp-form');
-const successMsg = document.getElementById('rsvp-success');
-
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  // To wire up real submissions, send form data to a service like Formspree:
-  // fetch('https://formspree.io/f/YOUR_ID', { method: 'POST', body: new FormData(form) })
-  form.hidden = true;
-  successMsg.hidden = false;
-  successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-});
+// ===== Smooth scroll for in-page anchor links =====
+(function () {
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 70;
+      const top  = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+})();
