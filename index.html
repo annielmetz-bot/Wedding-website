@@ -3,84 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We're Getting Married</title>
-    <style>
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #F5F1E8;
-            color: #4A6FA5;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #E8DCC8;
-            padding: 20px;
-            text-align: center;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #C85A1F;
-            font-weight: bold;
-        }
-        .hero {
-            text-align: center;
-            padding: 50px 20px;
-            background-color: #D4A574;
-            color: #E8DCC8;
-        }
-        .gallery {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-        .gallery-item {
-            width: 300px;
-            height: 200px;
-            background-color: #4A6FA5;
-            margin: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-        .story {
-            padding: 20px;
-            background-color: #E8DCC8;
-            color: #4A6FA5;
-            font-family: 'Courier', serif;
-        }
-        @media (max-width: 600px) {
-            .gallery-item {
-                width: 100%;
-            }
-        }
-    </style>
+    <title>Annie and Marcus's Wedding</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Annie & Marcus</h1>
         <nav>
-            <a href="#travel">Travel & Stay</a>
-            <a href="#things-to-do">Things to Do</a>
-            <a href="#places-to-eat">Places to Eat</a>
-            <a href="#faq">FAQ</a>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#story">Our Story</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </nav>
     </header>
-    <section class="hero">
-        <h2>We're Getting Married!</h2>
-        <p>Join us on September 4, 2027 in Arroyo Seco, NM</p>
+    <section id="hero">
+        <h1>Welcome to Annie & Marcus's Wedding</h1>
+        <p>Join us in celebrating our love on September 4, 2027 in Arroyo Seco, NM!</p>
     </section>
-    <section class="gallery">
-        <div class="gallery-item">Photo 1</div>
-        <div class="gallery-item">Photo 2</div>
-        <div class="gallery-item">Photo 3</div>
-        <div class="gallery-item">Photo 4</div>
+    <section id="gallery">
+        <h2>Photo Gallery</h2>
+        <div class="rotating-gallery">
+            <img src="image1.jpg" alt="Annie & Marcus 1">
+            <img src="image2.jpg" alt="Annie & Marcus 2">
+            <img src="image3.jpg" alt="Annie & Marcus 3">
+            <!-- Add more images as needed -->
+        </div>
     </section>
-    <section class="story">
-        <h3>Our Story</h3>
-        <p>We met later in life, when we knew who we were and what we wanted. We discovered in one another a shared passion for lives lived intentionally, if also unconventionally. The time it took to find each other allowed us to build deep relationships with ourselves, with the people around us, and with the broader world. One of the gifts of marrying later in life is the richness of the community we get to gather. This place, these mountains, this way of living: they've become the foundation of our happiness. We spend our days together, making things, learning, exploring, enjoying the seasons, and building a life grounded in this particular plot of earth. Having you witness our marriage in this place we cherish is a joy we can't quite put into words. We hope you can make it.</p>
+    <section id="story">
+        <h2>Our Story</h2>
+        <p>Once upon a time in Arroyo Seco, NM, Annie and Marcus met during a breathtaking sunset...</p>
+        <p>After years of friendship and adventures together, they decided to embark on a lifelong journey of love and togetherness.</p>
+        <p>Their wedding will be a celebration of that journey, full of joy, laughter, and cherished moments.</p>
+        <p>We hope to see you there! Save the date: September 4, 2027.</p>
     </section>
+    <footer>
+        <p>&copy; 2026 Annie & Marcus</p>
+        <p>Contact us: <a href="mailto:contact@anniemarcuswedding.com">contact@anniemarcuswedding.com</a></p>
+    </footer>
 </body>
 </html>
