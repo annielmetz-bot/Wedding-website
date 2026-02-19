@@ -1,0 +1,940 @@
+/* ============================================
+   CSS Variables & Reset
+   ============================================ */
+:root {
+  /* Southwest Americana palette - from the mood board swatches */
+  --sand:          #e8d4b0;   /* kraft paper background */
+  --sand-light:    #f4ead6;   /* lighter sand */
+  --sand-dark:     #d4bc90;   /* slightly darker */
+  --burnt-orange:  #c84020;   /* primary - bold burnt orange-red */
+  --orange-warm:   #e07040;   /* lighter orange */
+  --gold:          #d09820;   /* golden yellow */
+  --blue:          #4a78a0;   /* talavera blue */
+  --blue-dark:     #355a7a;   /* deep talavera blue */
+  --blue-light:    #c8daea;   /* light blue tint */
+  --sage:          #6a7855;   /* sage green */
+  --blush:         #d0a898;   /* dusty blush */
+  --cream:         #fdf5e8;   /* off-white cream */
+  --dark:          #2a1810;   /* deep brown-black */
+  --medium:        #5a3820;   /* warm medium brown */
+  --muted:         #8a6850;   /* muted brown */
+
+  --header-height: 68px;
+  --section-padding: 96px 24px;
+  --border-radius: 2px;
+  --transition: 0.28s ease;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--dark);
+  background-color: var(--sand);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--burnt-orange);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--blue-dark);
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  text-align: center;
+  color: var(--dark);
+  margin-bottom: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Tile ornament divider under section titles */
+.section-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--burnt-orange);
+  margin: 14px auto 52px;
+}
+
+/* ============================================
+   Tile Ornament (reusable decorative divider)
+   ============================================ */
+.tile-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 40px auto;
+}
+
+.tile-row .tile-sq {
+  width: 20px;
+  height: 20px;
+  background: var(--blue);
+}
+
+.tile-row .tile-sq:nth-child(even) {
+  background: var(--burnt-orange);
+}
+
+/* ============================================
+   Header & Navigation
+   ============================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: background-color var(--transition), box-shadow var(--transition);
+}
+
+.site-header.scrolled {
+  background-color: rgba(232, 212, 176, 0.97);
+  box-shadow: 0 2px 24px rgba(42, 24, 16, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgba(244, 234, 214, 0.95);
+  letter-spacing: 0.06em;
+  transition: color var(--transition);
+  user-select: none;
+}
+
+.site-header.scrolled .nav-logo {
+  color: var(--dark);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 36px;
+}
+
+.nav-links a {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 234, 214, 0.88);
+  transition: color var(--transition);
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.site-header.scrolled .nav-links a {
+  color: var(--muted);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--burnt-orange) !important;
+  border-bottom-color: var(--burnt-orange);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: rgba(244, 234, 214, 0.9);
+  transition: background-color var(--transition);
+}
+
+.site-header.scrolled .nav-toggle span {
+  background: var(--dark);
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--burnt-orange);
+  /* Subtle noise/grain texture using repeating gradient */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.015) 2px,
+      rgba(0,0,0,0.015) 4px
+    );
+  color: var(--sand-light);
+  text-align: center;
+  padding: 120px 32px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Talavera tile border strip at bottom of hero */
+#hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--blue) 0px,
+    var(--blue) 40px,
+    var(--gold) 40px,
+    var(--gold) 48px,
+    var(--sage) 48px,
+    var(--sage) 88px,
+    var(--gold) 88px,
+    var(--gold) 96px
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.hero-pre {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(244, 234, 214, 0.75);
+  margin-bottom: 20px;
+}
+
+#hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 13vw, 9rem);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--sand-light);
+  margin-bottom: 16px;
+  text-shadow: 3px 4px 0px rgba(42, 24, 16, 0.2);
+}
+
+.hero-date {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 234, 214, 0.7);
+  margin-bottom: 56px;
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 88px;
+  padding: 16px 12px;
+  border: 1px solid rgba(244, 234, 214, 0.25);
+  background: rgba(42, 24, 16, 0.15);
+}
+
+.countdown-item:first-child {
+  border-right: none;
+}
+
+.countdown-item:last-child {
+  border-left: none;
+}
+
+.countdown-item span {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--sand-light);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.countdown-item label {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(244, 234, 214, 0.55);
+  margin-top: 8px;
+}
+
+.countdown-sep {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  color: rgba(244, 234, 214, 0.3);
+  line-height: 1;
+  align-self: center;
+  padding: 0 2px;
+  margin-bottom: 20px;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(244, 234, 214, 0.4);
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, rgba(244, 234, 214, 0.4), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+/* ============================================
+   Section Common Styles
+   ============================================ */
+section {
+  padding: var(--section-padding);
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#story   { background-color: var(--sand-light); }
+#details { background-color: var(--sand); }
+#gallery { background-color: var(--blue-dark); }
+#rsvp    { background-color: var(--sand-light); }
+
+/* Tile strip top border on alternating sections */
+#story::before,
+#rsvp::before {
+  content: '';
+  display: block;
+  height: 6px;
+  margin: -96px -24px 80px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--burnt-orange) 0px,
+    var(--burnt-orange) 32px,
+    var(--gold) 32px,
+    var(--gold) 40px,
+    var(--sage) 40px,
+    var(--sage) 72px,
+    var(--gold) 72px,
+    var(--gold) 80px
+  );
+}
+
+/* ============================================
+   Our Story Section
+   ============================================ */
+.story-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  text-align: center;
+}
+
+.story-block {
+  padding: 44px 28px 36px;
+  background: var(--cream);
+  border: 2px solid var(--sand-dark);
+  /* Folk art corner treatment */
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.story-block::before,
+.story-block::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--blue);
+}
+
+.story-block::before {
+  top: -2px;
+  left: -2px;
+}
+
+.story-block::after {
+  bottom: -2px;
+  right: -2px;
+}
+
+.story-block:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 6px 0px var(--sand-dark);
+}
+
+.story-icon {
+  font-size: 1.6rem;
+  color: var(--burnt-orange);
+  margin-bottom: 16px;
+}
+
+.story-block h3 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 14px;
+}
+
+.story-block p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* ============================================
+   Details Section
+   ============================================ */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.detail-card {
+  text-align: center;
+  padding: 48px 32px;
+  background: var(--cream);
+  border-top: 6px solid var(--blue);
+  box-shadow: 3px 5px 0px var(--sand-dark);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.detail-card:nth-child(2) {
+  border-top-color: var(--burnt-orange);
+}
+
+.detail-card:nth-child(3) {
+  border-top-color: var(--sage);
+}
+
+.detail-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 3px 8px 0px var(--sand-dark);
+}
+
+.detail-icon {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.detail-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 16px;
+}
+
+.detail-card p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 2.1;
+}
+
+/* ============================================
+   Gallery Section (Talavera Tile Aesthetic)
+   ============================================ */
+#gallery .section-title {
+  color: var(--sand-light);
+}
+
+#gallery .section-title::after {
+  background: var(--gold);
+}
+
+.gallery-slideshow {
+  position: relative;
+  max-width: 660px;
+  margin: 0 auto 28px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--blue-dark);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* Tile grid placeholder */
+.slide-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+  background: var(--sand);
+  padding: 6px;
+}
+
+.tile-cell {
+  background: var(--blue);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Folk art tulip flower on each tile using CSS pseudo-elements */
+.tile-cell::before {
+  content: '✿';
+  font-size: 2.2rem;
+  color: var(--blush);
+  opacity: 0.85;
+  text-shadow: 0 0 8px rgba(74, 120, 160, 0.5);
+  transition: transform 0.4s ease;
+}
+
+.tile-cell:hover::before {
+  transform: scale(1.15) rotate(15deg);
+}
+
+/* Center tile is the label tile */
+.tile-cell.tile-label {
+  background: var(--blush);
+  flex-direction: column;
+  gap: 6px;
+  cursor: default;
+}
+
+.tile-cell.tile-label::before {
+  display: none;
+}
+
+.tile-cell.tile-label p {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  text-align: center;
+  line-height: 1.3;
+  padding: 0 8px;
+}
+
+.tile-cell.tile-label small {
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 0 6px;
+}
+
+/* When real images are used, drop in an <img> tag inside .slide */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Gallery Controls */
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.gallery-btn {
+  background: rgba(244, 234, 214, 0.12);
+  border: 2px solid rgba(244, 234, 214, 0.4);
+  color: var(--sand-light);
+  width: 46px;
+  height: 46px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+  line-height: 1;
+}
+
+.gallery-btn:hover {
+  background-color: var(--burnt-orange);
+  border-color: var(--burnt-orange);
+  color: #fff;
+}
+
+.gallery-dots {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(244, 234, 214, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+  padding: 0;
+}
+
+.dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+/* ============================================
+   RSVP Section
+   ============================================ */
+.rsvp-subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+
+.rsvp-form {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--cream);
+  padding: 52px 48px;
+  border: 2px solid var(--sand-dark);
+  box-shadow: 5px 7px 0px var(--sand-dark);
+}
+
+.form-group {
+  margin-bottom: 28px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--medium);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--sand-dark);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--dark);
+  background: var(--sand-light);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 3px 3px 0px var(--blue-light);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.radio-group > label {
+  margin-bottom: 14px;
+}
+
+.radio-options {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.radio-label input[type="radio"] {
+  width: auto;
+  accent-color: var(--burnt-orange);
+  cursor: pointer;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--burnt-orange);
+  color: var(--sand-light);
+  border: 2px solid var(--burnt-orange);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.submit-btn:hover {
+  background-color: var(--dark);
+  border-color: var(--dark);
+  transform: translateY(-2px);
+  box-shadow: 3px 4px 0px var(--sand-dark);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.rsvp-success {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 52px 48px;
+  background: var(--cream);
+  border: 2px solid var(--sand-dark);
+  box-shadow: 5px 7px 0px var(--sand-dark);
+}
+
+.rsvp-success p {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.5;
+}
+
+.contact-email {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.site-footer {
+  background: var(--dark);
+  color: rgba(244, 234, 214, 0.5);
+  text-align: center;
+  padding: 44px 24px;
+  font-size: 0.78rem;
+  line-height: 2.2;
+  letter-spacing: 0.06em;
+  position: relative;
+}
+
+/* Tile strip at top of footer */
+.site-footer::before {
+  content: '';
+  display: block;
+  height: 6px;
+  margin: -44px -24px 38px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--blue) 0px,
+    var(--blue) 32px,
+    var(--gold) 32px,
+    var(--gold) 40px,
+    var(--burnt-orange) 40px,
+    var(--burnt-orange) 72px,
+    var(--gold) 72px,
+    var(--gold) 80px
+  );
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 72px 20px;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: rgba(232, 212, 176, 0.98);
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 16px 0 28px;
+    box-shadow: 0 12px 30px rgba(42, 24, 16, 0.15);
+    border-top: 3px solid var(--burnt-orange);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 14px 24px;
+    color: var(--muted) !important;
+    border-bottom: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .countdown {
+    gap: 0;
+  }
+
+  .countdown-item {
+    min-width: 68px;
+    padding: 12px 8px;
+  }
+
+  .countdown-sep {
+    display: none;
+  }
+
+  .story-content,
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rsvp-form,
+  .rsvp-success {
+    padding: 32px 24px;
+  }
+
+  .gallery-slideshow {
+    max-width: 100%;
+  }
+
+  #story::before,
+  #rsvp::before {
+    margin: -72px -20px 64px;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero h1 {
+    font-size: clamp(3.2rem, 16vw, 5rem);
+  }
+
+  .hero-date {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+  }
+
+  .countdown-item span {
+    font-size: 2rem;
+  }
+
+  .tile-cell::before {
+    font-size: 1.6rem;
+  }
+}
