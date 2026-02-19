@@ -110,6 +110,34 @@
   });
 })();
 
+// ===== Gallery Auto-Scroll =====
+(function () {
+  const strip = document.getElementById('gallery');
+  if (!strip) return;
+
+  // Duplicate items for seamless infinite loop
+  [...strip.children].forEach(item => strip.appendChild(item.cloneNode(true)));
+
+  const speed = 0.6; // px per frame (~36 px/s at 60 fps)
+  let paused = false;
+
+  strip.addEventListener('mouseenter',  () => { paused = true; });
+  strip.addEventListener('mouseleave',  () => { paused = false; });
+  strip.addEventListener('touchstart',  () => { paused = true; }, { passive: true });
+  strip.addEventListener('touchend',    () => { setTimeout(() => { paused = false; }, 1500); });
+
+  (function tick() {
+    if (!paused && !strip.classList.contains('dragging')) {
+      strip.scrollLeft += speed;
+      // seamless reset at the halfway mark
+      if (strip.scrollLeft >= strip.scrollWidth / 2) {
+        strip.scrollLeft = 0;
+      }
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+
 // ===== FAQ Accordion =====
 (function () {
   const faqItems = document.querySelectorAll('.faq-item');

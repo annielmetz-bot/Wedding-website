@@ -322,7 +322,6 @@ h1,h2,h3,h4 {
 .gallery-strip-inner {
   display: flex;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   gap: 3px;
   cursor: grab;
@@ -334,7 +333,6 @@ h1,h2,h3,h4 {
   flex: 0 0 auto;
   width: 380px;
   height: 300px;
-  scroll-snap-align: start;
   cursor: pointer;
   overflow: hidden;
 }
