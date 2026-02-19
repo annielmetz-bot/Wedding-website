@@ -53,7 +53,7 @@
   const lbClose   = document.getElementById('lightboxClose');
   if (!lightbox) return;
 
-  document.querySelectorAll('.gallery-item').forEach(item => {
+  document.querySelectorAll('.gallery-strip-item').forEach(item => {
     item.addEventListener('click', () => {
       const src = item.dataset.src || item.querySelector('img')?.src;
       const alt = item.querySelector('img')?.alt || '';
@@ -85,6 +85,31 @@
   });
 })();
 
+// ===== Gallery Drag-to-Scroll =====
+(function () {
+  const strip = document.getElementById('gallery');
+  if (!strip) return;
+
+  let isDown = false, startX, scrollLeft;
+
+  strip.addEventListener('mousedown', (e) => {
+    isDown = true;
+    strip.classList.add('dragging');
+    startX    = e.pageX - strip.offsetLeft;
+    scrollLeft = strip.scrollLeft;
+    e.preventDefault();
+  });
+  strip.addEventListener('mouseleave', () => { isDown = false; strip.classList.remove('dragging'); });
+  strip.addEventListener('mouseup',    () => { isDown = false; strip.classList.remove('dragging'); });
+  strip.addEventListener('mousemove',  (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x    = e.pageX - strip.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    strip.scrollLeft = scrollLeft - walk;
+  });
+})();
+
 // ===== FAQ Accordion =====
 (function () {
   const faqItems = document.querySelectorAll('.faq-item');
@@ -112,6 +137,35 @@
         btn.setAttribute('aria-expanded', 'true');
         answer.style.maxHeight = answer.scrollHeight + 'px';
       }
+    });
+  });
+})();
+
+// ===== Ticker Wave Animation =====
+(function () {
+  const track = document.getElementById('tickerTrack');
+  if (!track) return;
+
+  function splitGraphemes(str) {
+    if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+      return [...new Intl.Segmenter().segment(str)].map(s => s.segment);
+    }
+    return [...str];
+  }
+
+  const spans = track.querySelectorAll(':scope > span');
+  const totalChars = splitGraphemes(spans[0]?.textContent || '').length;
+  const delay = 1.6 / totalChars; // one full wave cycle spread across phrase
+
+  spans.forEach(span => {
+    const chars = splitGraphemes(span.textContent);
+    span.textContent = '';
+    chars.forEach((ch, i) => {
+      const el = document.createElement('span');
+      el.className = 'wave-char';
+      el.style.animationDelay = (i * delay).toFixed(3) + 's';
+      el.textContent = ch;
+      span.appendChild(el);
     });
   });
 })();
