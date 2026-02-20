@@ -333,7 +333,7 @@ h1,h2,h3,h4 {
 .gallery-strip-item {
   flex: 0 0 auto;
   width: 380px;
-  height: 300px;
+  height: 440px;
   cursor: pointer;
   overflow: hidden;
   position: relative;
@@ -1062,7 +1062,7 @@ h1,h2,h3,h4 {
 
   .explore-grid { grid-template-columns: 1fr; padding: 3rem 1.25rem; }
 
-  .gallery-strip-item { width: 280px; height: 240px; }
+  .gallery-strip-item { width: 280px; height: 360px; }
 
   .page-tiles { grid-template-columns: repeat(2, 1fr); }
 
@@ -1076,7 +1076,7 @@ h1,h2,h3,h4 {
 }
 
 @media (max-width: 480px) {
-  .gallery-strip-item { width: 220px; height: 200px; }
+  .gallery-strip-item { width: 220px; height: 300px; }
   .page-tiles { grid-template-columns: 1fr; }
   .hero-names { font-size: clamp(3rem, 14vw, 5rem); }
 }
