@@ -11,6 +11,7 @@
   --sage:           #5c6b40;
   --sage-lt:        #7a8f58;
   --dusty-blue:     #6b82a8;
+  --navy:           #1a3050;
   --blush:          #c9b0a0;
   --gold:           #c4a040;
   --dark:           #1e1208;
@@ -170,7 +171,7 @@ h1,h2,h3,h4 {
   font-size: clamp(4rem, 12vw, 9rem);
   font-weight: 400;
   font-style: italic;
-  color: var(--dark);
+  color: var(--navy);
   line-height: 1;
   letter-spacing: -.01em;
   margin-bottom: 1.5rem;
@@ -272,7 +273,7 @@ h1,h2,h3,h4 {
 }
 .section-header h2 {
   font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--dark);
+  color: var(--navy);
   margin-top: .5rem;
 }
 
@@ -293,7 +294,7 @@ h1,h2,h3,h4 {
 }
 .story-text h2 {
   font-size: clamp(2rem, 4vw, 2.8rem);
-  color: var(--dark);
+  color: var(--navy);
   margin-bottom: 1.75rem;
 }
 .story-text p {
@@ -450,7 +451,7 @@ h1,h2,h3,h4 {
 .explore-card .eyebrow { margin-bottom: .75rem; }
 .explore-card h3 {
   font-size: 1.8rem;
-  color: var(--dark);
+  color: var(--navy);
   margin-bottom: .75rem;
 }
 .explore-card p {
@@ -481,7 +482,7 @@ h1,h2,h3,h4 {
 }
 .tiles-header h2 {
   font-size: clamp(1.8rem, 4vw, 2.6rem);
-  color: var(--dark);
+  color: var(--navy);
   margin-top: .5rem;
 }
 .page-tiles {
@@ -506,7 +507,7 @@ h1,h2,h3,h4 {
 .page-tile-icon { font-size: 1.8rem; }
 .page-tile h3 {
   font-size: 1rem;
-  color: var(--dark);
+  color: var(--navy);
   font-family: var(--font-display);
 }
 .page-tile p {
@@ -556,7 +557,7 @@ h1,h2,h3,h4 {
 .page-hero .eyebrow { margin-bottom: .6rem; }
 .page-hero h1 {
   font-size: clamp(2.4rem, 6vw, 4rem);
-  color: var(--dark);
+  color: var(--navy);
   margin-bottom: .75rem;
 }
 .page-hero p {
@@ -590,7 +591,7 @@ h1,h2,h3,h4 {
 .category-header:first-child { margin-top: 0; }
 .category-header h2 {
   font-size: 1.6rem;
-  color: var(--dark);
+  color: var(--navy);
 }
 .category-icon { font-size: 1.1rem; }
 
@@ -637,11 +638,11 @@ h1,h2,h3,h4 {
 
 .listing-card h3 {
   font-size: 1.1rem;
-  color: var(--dark);
+  color: var(--navy);
   margin-bottom: .2rem;
 }
 .listing-card h3 a {
-  color: var(--dark);
+  color: var(--navy);
   text-decoration: none;
   border-bottom: 1px solid var(--blush);
   transition: color .2s, border-color .2s;
@@ -690,9 +691,9 @@ h1,h2,h3,h4 {
   transition: box-shadow .2s;
 }
 .hotel-card:hover { box-shadow: var(--shadow); }
-.hotel-card h3 { font-size: 1.15rem; color: var(--dark); margin-bottom: .2rem; }
+.hotel-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: .2rem; }
 .hotel-card h3 a {
-  color: var(--dark);
+  color: var(--navy);
   text-decoration: none;
   border-bottom: 1px solid var(--blush);
   transition: color .2s, border-color .2s;
@@ -759,7 +760,7 @@ h1,h2,h3,h4 {
 .simple-list li:last-child { border-bottom: none; }
 .simple-list h3 {
   font-size: 1.05rem;
-  color: var(--dark);
+  color: var(--navy);
   flex-shrink: 0;
 }
 .simple-list p {
@@ -787,7 +788,7 @@ h1,h2,h3,h4 {
   font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--navy);
   transition: color .2s;
 }
 .faq-question:hover { color: var(--terracotta); }
@@ -828,7 +829,7 @@ h1,h2,h3,h4 {
 }
 .message-form-wrap h2 {
   font-size: 1.6rem;
-  color: var(--dark);
+  color: var(--navy);
   margin-bottom: 1.5rem;
 }
 .form-row {
@@ -931,7 +932,7 @@ h1,h2,h3,h4 {
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--navy);
 }
 .message-card-date { font-size: .7rem; color: var(--light-text); }
 .message-card-text { font-size: .92rem; color: var(--medium); line-height: 1.7; }
