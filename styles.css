@@ -336,6 +336,21 @@ h1,h2,h3,h4 {
   height: 300px;
   cursor: pointer;
   overflow: hidden;
+  position: relative;
+}
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: .5rem .85rem;
+  background: linear-gradient(to top, rgba(26,48,80,.72) 0%, transparent 100%);
+  color: rgba(245,240,232,.95);
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 .gallery-strip-item img {
   width: 100%;
