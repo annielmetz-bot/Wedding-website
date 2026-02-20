@@ -240,6 +240,7 @@ h1,h2,h3,h4 {
   font-size: .65rem;
   font-weight: 700;
   letter-spacing: .25em;
+  word-spacing: .6em;
   text-transform: uppercase;
   color: rgba(245,240,232,.9);
   padding: 0 2.5rem;
