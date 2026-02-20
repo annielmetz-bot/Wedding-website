@@ -14,8 +14,8 @@
   --navy:           #1a3050;
   --blush:          #c9b0a0;
   --gold:           #c4a040;
-  --dark:           #1e1208;
-  --medium:         #4a3020;
+  --dark:           #1a3050;
+  --medium:         #50607a;
   --light-text:     #8a7060;
 
   --font-display:   'Cormorant Garamond', Georgia, serif;
@@ -1065,6 +1065,25 @@ h1,h2,h3,h4 {
   .page-tiles { grid-template-columns: 1fr; }
   .hero-names { font-size: clamp(3rem, 14vw, 5rem); }
 }
+
+/* ============================================
+   Colorful Dots
+   ============================================ */
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-terracotta { background: var(--terracotta); }
+.dot-sage       { background: var(--sage); }
+.dot-marigold   { background: var(--marigold); }
+.dot-blue       { background: var(--dusty-blue); }
+.dot-blush      { background: var(--blush); }
+.dot-gold       { background: var(--gold); }
+
+.page-tile-icon .dot { width: 20px; height: 20px; }
+.category-icon  .dot { width: 11px; height: 11px; }
+.ticker-dot          { width: 8px;  height: 8px; vertical-align: middle; }
 
 /* ============================================
    Utility
