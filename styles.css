@@ -239,7 +239,7 @@ h1,h2,h3,h4 {
 .ticker-track > span {
   font-size: .65rem;
   font-weight: 700;
-  letter-spacing: .15em;
+  letter-spacing: .25em;
   text-transform: uppercase;
   color: rgba(245,240,232,.9);
   padding: 0 2.5rem;
