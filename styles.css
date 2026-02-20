@@ -250,6 +250,9 @@ h1,h2,h3,h4 {
   margin-right: .18em;
   animation: wave-char 1.6s ease-in-out infinite;
 }
+.ticker-track .wave-space {
+  margin-right: .9em;
+}
 @keyframes ticker {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }

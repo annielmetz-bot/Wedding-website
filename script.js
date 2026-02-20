@@ -190,7 +190,8 @@
     span.textContent = '';
     chars.forEach((ch, i) => {
       const el = document.createElement('span');
-      el.className = 'wave-char';
+      const isSpace = ch === ' ' || ch === '\u00a0';
+      el.className = isSpace ? 'wave-char wave-space' : 'wave-char';
       el.style.animationDelay = (i * delay).toFixed(3) + 's';
       el.textContent = ch;
       span.appendChild(el);
