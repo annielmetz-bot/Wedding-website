@@ -771,6 +771,7 @@ h1,h2,h3,h4 {
   color: var(--medium);
   line-height: 1.65;
 }
+.info-box p + p { margin-top: .65rem; }
 .info-box ul { padding-left: 1.2rem; }
 .info-box li { margin-bottom: .2rem; }
 
