@@ -775,6 +775,13 @@ h1,h2,h3,h4 {
 .info-box ul { padding-left: 1.2rem; }
 .info-box li { margin-bottom: .2rem; }
 
+/* Caution variant — for the things we really mean */
+.info-box.caution {
+  background: #fbf3ec;
+  border-left-color: var(--marigold);
+}
+.info-box.caution h4 { color: #a86b10; }
+
 /* ============================================
    Simple list (for restaurants etc.)
    ============================================ */
