@@ -693,6 +693,30 @@ h1,h2,h3,h4 {
 }
 .listing-card a { color: var(--terracotta); }
 
+/* Secondary link chip on a listing card (Map / Website) */
+.listing-card h3 a.card-link {
+  font-family: var(--font-body);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  background: rgba(196,64,32,.08);
+  border: none;
+  border-radius: 2px;
+  padding: .2rem .45rem;
+  margin-left: .4rem;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.listing-card h3 a.card-link:hover {
+  background: var(--terracotta);
+  color: var(--white);
+  border: none;
+}
+
 /* Price tag */
 .price {
   font-size: .72rem;
