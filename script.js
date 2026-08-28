@@ -59,6 +59,8 @@
   document.addEventListener('click', (e) => {
     const item = e.target.closest('.gallery-strip-item');
     if (!item) return;
+    // Ignore the click that terminates a drag.
+    if (item.closest('.gallery-strip-inner')?.dataset.suppressClick) return;
     const src = item.dataset.src || item.querySelector('img')?.src;
     const alt = item.querySelector('img')?.alt || '';
     if (!src) return;
@@ -93,22 +95,38 @@
   const strip = document.getElementById('gallery');
   if (!strip) return;
 
-  let isDown = false, startX, scrollLeft;
+  let isDown = false, startX, scrollLeft, moved = 0;
+  const DRAG_SLOP = 5; // px of travel before we treat it as a drag, not a click
+
+  function endDrag() {
+    if (!isDown) return;
+    isDown = false;
+    strip.classList.remove('dragging');
+    // A drag always ends with a click event. Suppress that one click so
+    // dragging the strip doesn't also fling the lightbox open. The flag is
+    // cleared on the next task, i.e. after the click has been dispatched.
+    if (moved > DRAG_SLOP) {
+      strip.dataset.suppressClick = 'true';
+      setTimeout(() => { delete strip.dataset.suppressClick; }, 0);
+    }
+  }
 
   strip.addEventListener('mousedown', (e) => {
     isDown = true;
+    moved  = 0;
     strip.classList.add('dragging');
     startX    = e.pageX - strip.offsetLeft;
     scrollLeft = strip.scrollLeft;
     e.preventDefault();
   });
-  strip.addEventListener('mouseleave', () => { isDown = false; strip.classList.remove('dragging'); });
-  strip.addEventListener('mouseup',    () => { isDown = false; strip.classList.remove('dragging'); });
+  strip.addEventListener('mouseleave', endDrag);
+  strip.addEventListener('mouseup',    endDrag);
   strip.addEventListener('mousemove',  (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x    = e.pageX - strip.offsetLeft;
     const walk = (x - startX) * 1.5;
+    moved = Math.max(moved, Math.abs(walk));
     strip.scrollLeft = scrollLeft - walk;
   });
 })();
@@ -118,8 +136,27 @@
   const strip = document.getElementById('gallery');
   if (!strip) return;
 
-  // Duplicate items for seamless infinite loop
-  [...strip.children].forEach(item => strip.appendChild(item.cloneNode(true)));
+  // Duplicate items for seamless infinite loop. Clones are decorative
+  // repeats, so hide them from assistive tech rather than reading the
+  // whole gallery out twice.
+  const originals = [...strip.children];
+  originals.forEach(item => {
+    const clone = item.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    strip.appendChild(clone);
+  });
+
+  // Distance from the first original to the first clone. Measured rather
+  // than derived from scrollWidth/2, which is short by one flex gap and
+  // made the wrap visibly hitch.
+  let loopWidth = 0;
+  function measure() {
+    const first = strip.children[0];
+    const wrapPoint = strip.children[originals.length];
+    loopWidth = (first && wrapPoint) ? wrapPoint.offsetLeft - first.offsetLeft : 0;
+  }
+  measure();
+  window.addEventListener('resize', measure);
 
   const speed = 0.6; // px per frame (~36 px/s at 60 fps)
   let paused = false;
@@ -132,9 +169,10 @@
   (function tick() {
     if (!paused && !strip.classList.contains('dragging')) {
       strip.scrollLeft += speed;
-      // seamless reset at the halfway mark
-      if (strip.scrollLeft >= strip.scrollWidth / 2) {
-        strip.scrollLeft = 0;
+      // Subtract rather than zero, so the sub-pixel remainder carries over
+      // and the wrap is invisible.
+      if (loopWidth && strip.scrollLeft >= loopWidth) {
+        strip.scrollLeft -= loopWidth;
       }
     }
     requestAnimationFrame(tick);
