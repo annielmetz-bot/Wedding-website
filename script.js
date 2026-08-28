@@ -53,17 +53,20 @@
   const lbClose   = document.getElementById('lightboxClose');
   if (!lightbox) return;
 
-  document.querySelectorAll('.gallery-strip-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const src = item.dataset.src || item.querySelector('img')?.src;
-      const alt = item.querySelector('img')?.alt || '';
-      if (!src) return;
-      lbImg.src = src;
-      lbImg.alt = alt;
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      lbClose.focus();
-    });
+  // Delegated so that clones added by the auto-scroll loop stay clickable.
+  // (cloneNode does not copy event listeners, so per-item binding missed half
+  // the strip once the seamless-loop duplicates were appended.)
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-strip-item');
+    if (!item) return;
+    const src = item.dataset.src || item.querySelector('img')?.src;
+    const alt = item.querySelector('img')?.alt || '';
+    if (!src) return;
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
   });
 
   function closeLightbox() {
