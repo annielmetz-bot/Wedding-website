@@ -162,7 +162,9 @@
     });
 
     // ===== Render a single message card =====
-    function renderCard(data) {
+    // atTop is for a message the guest just posted; the Firestore snapshot
+    // already arrives newest-first, so those are appended in order.
+    function renderCard(data, atTop = false) {
       emptyState.style.display = 'none';
       const card = document.createElement('div');
       card.className = 'message-card';
@@ -180,7 +182,7 @@
         <div class="message-card-text">${escHtml(data.message).replace(/\n/g, '<br>')}</div>
         ${data.photoUrl ? `<div class="message-card-photo"><img src="${escHtml(data.photoUrl)}" alt="Photo from ${escHtml(data.name)}" loading="lazy" /></div>` : ''}
       `;
-      grid.prepend(card);
+      if (atTop) grid.prepend(card); else grid.appendChild(card);
     }
 
     function escHtml(str) {
@@ -237,7 +239,7 @@
 
         if (!FIREBASE_CONFIGURED) {
           // Demo mode — just show it locally
-          renderCard({ name, relation, message, photoUrl: null, timestamp: null });
+          renderCard({ name, relation, message, photoUrl: null, timestamp: null }, true);
           form.reset();
           photoLabel.textContent = 'Choose a photo to share…';
           showStatus('Message posted! (Demo mode — configure Firebase to save permanently.)', 'success');
@@ -282,7 +284,7 @@
       const demos = [
         { name: 'Your Guests', relation: 'Friend of the couple', message: 'Configure Firebase (see the HTML comments) to let guests post real messages here! Once set up, messages will appear in real-time and persist forever. 🎉', photoUrl: null, timestamp: null }
       ];
-      demos.forEach(renderCard);
+      demos.forEach(d => renderCard(d));
     }
 
     // Kick off
