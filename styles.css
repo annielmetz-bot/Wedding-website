@@ -782,6 +782,14 @@ h1,h2,h3,h4 {
 }
 .info-box.caution h4 { color: #a86b10; }
 
+/* Photo size hint on the message form */
+.photo-hint {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--light-text);
+}
+
 /* ============================================
    Simple list (for restaurants etc.)
    ============================================ */
@@ -849,7 +857,8 @@ h1,h2,h3,h4 {
 }
 .faq-answer-inner p { margin-bottom: .75rem; }
 .faq-answer-inner p:last-child { margin-bottom: 0; }
-.faq-answer-inner ul { padding-left: 1.4rem; }
+.faq-answer-inner ul,
+.faq-answer-inner ol { padding-left: 1.4rem; margin-bottom: .75rem; }
 .faq-answer-inner li { margin-bottom: .3rem; }
 .faq-answer-inner a { color: var(--terracotta); }
 

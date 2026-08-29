@@ -55,7 +55,7 @@
           <textarea id="msgText" name="message" placeholder="Share a memory, a wish, some advice, a toast…" required></textarea>
         </div>
         <div class="form-group">
-          <label>Photo (optional)</label>
+          <label>Photo (optional) <span class="photo-hint">— up to 10 MB</span></label>
           <label class="photo-upload-label">
             <input type="file" id="msgPhoto" name="photo" accept="image/*" />
             <span>📷</span>
@@ -154,11 +154,43 @@
     const photoInput   = document.getElementById('msgPhoto');
     const photoLabel   = document.getElementById('photoFileName');
 
-    // Show file name when photo selected
+    // ===== Photo size limit =====
+    const MAX_PHOTO_MB    = 10;
+    const MAX_PHOTO_BYTES = MAX_PHOTO_MB * 1024 * 1024;
+    const PLACEHOLDER     = 'Choose a photo to share…';
+
+    // Returns an error string, or null when the file is fine.
+    function photoProblem(file) {
+      if (!file) return null;
+      if (file.type && !file.type.startsWith('image/')) {
+        return 'That file isn\u2019t a photo. Please choose an image.';
+      }
+      if (file.size > MAX_PHOTO_BYTES) {
+        const mb = (file.size / 1024 / 1024).toFixed(1);
+        return `That photo is ${mb} MB, and the limit is ${MAX_PHOTO_MB} MB. ` +
+               `Most phones can email or share a "medium" or "small" size \u2014 ` +
+               `or just post your message without it, we\u2019d still love to read it.`;
+      }
+      return null;
+    }
+
+    function clearPhoto() {
+      photoInput.value = '';
+      photoLabel.textContent = PLACEHOLDER;
+    }
+
+    // Show file name when photo selected, and reject anything oversized now
+    // rather than after the guest has written their message.
     photoInput.addEventListener('change', () => {
-      photoLabel.textContent = photoInput.files[0]
-        ? photoInput.files[0].name
-        : 'Choose a photo to share…';
+      const file = photoInput.files[0];
+      const problem = photoProblem(file);
+      if (problem) {
+        clearPhoto();
+        showStatus(problem, 'error');
+        return;
+      }
+      hideStatus();
+      photoLabel.textContent = file ? file.name : PLACEHOLDER;
     });
 
     // ===== Render a single message card =====
@@ -230,6 +262,13 @@
         return;
       }
 
+      const problem = photoProblem(photo);
+      if (problem) {
+        clearPhoto();
+        showStatus(problem, 'error');
+        return;
+      }
+
       submitBtn.disabled = true;
       submitBtn.textContent = 'Posting…';
       hideStatus();
@@ -241,7 +280,7 @@
           // Demo mode — just show it locally
           renderCard({ name, relation, message, photoUrl: null, timestamp: null }, true);
           form.reset();
-          photoLabel.textContent = 'Choose a photo to share…';
+          clearPhoto();
           showStatus('Message posted! (Demo mode — configure Firebase to save permanently.)', 'success');
           submitBtn.disabled = false;
           submitBtn.textContent = 'Post Message';
@@ -260,7 +299,7 @@
         });
 
         form.reset();
-        photoLabel.textContent = 'Choose a photo to share…';
+        clearPhoto();
         showStatus('Your message has been posted. Thank you! 💌', 'success');
       } catch (err) {
         console.error('Error posting message:', err);
